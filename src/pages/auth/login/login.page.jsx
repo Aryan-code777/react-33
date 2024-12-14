@@ -1,9 +1,7 @@
 import { useForm } from "react-hook-form";
 
-
-
-
-
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const LoginPage = () => {
     // const [credentials, setCredentials] = useState;
@@ -18,11 +16,14 @@ const LoginPage = () => {
     // }
     // console.log(credentials)
 
-const loginDto = Yup.object({
+const loginDTO = Yup.object({
     email: Yup.string().email().required(),
-})
+    password: Yup.string().required()
+});
 
-    const {register, handleSubmit, formState: {errors}} = useForm()
+    const {register, handleSubmit, formState: {errors}} = useForm({
+        resolver: yupResolver(loginDTO)
+    })
    
    const submitEvent = (data) => {
     console.log(data)
